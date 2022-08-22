@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(
-    name='JanewayFTP',
+    name='janeway-ftp',
     version='0.0.1',
     author='OLH Tech',
     author_email='olh-tech@bbk.ac.uk',
