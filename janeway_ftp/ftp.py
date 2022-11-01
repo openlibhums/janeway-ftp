@@ -10,7 +10,6 @@ def send_file_via_ftp(
     file_path,
     remote_directory='janeway',
 ):
-
     file_to_send = open(file_path, 'rb')
     file_name = os.path.basename(file_to_send.name)
 

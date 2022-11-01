@@ -1,3 +1,4 @@
+import os
 import logging
 import paramiko
 
@@ -9,6 +10,7 @@ def send_file_via_sftp(
         ftp_server_key,
         remote_file_path,
         file_path,
+        file_name
 ):
     ssh = paramiko.SSHClient()
     if ftp_server_key:
@@ -30,9 +32,16 @@ def send_file_via_sftp(
         password=ftp_password,
     )
     sftp = ssh.open_sftp()
+    try:
+        sftp.mkdir(
+            remote_file_path,
+        )
+    except IOError:
+        pass # folder exists already
+    upload_path = "{}/{}".format(remote_file_path, file_name)
     sftp.put(
         file_path,
-        remote_file_path,
+        upload_path,
     )
 
     # Close SFTP Session and unlink the zip file
