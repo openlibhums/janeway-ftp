@@ -11,7 +11,7 @@ setup(
     description='A Django FTP package for Janeway.',
     long_description=open('README.md').read(),
     install_requires=[
-       "Django >= 1.11",
+       "paramiko >= 2.11.0",
     ],
     classifiers=[
         "Programming Language :: Python",
