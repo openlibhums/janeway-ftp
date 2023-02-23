@@ -8,6 +8,7 @@ def send_file_via_ftp(
     ftp_username,
     ftp_password,
     file_path,
+    remote_path=None,
     remote_directory='janeway',
 ):
     file_to_send = open(file_path, 'rb')
@@ -18,6 +19,8 @@ def send_file_via_ftp(
         user=ftp_username,
         passwd=ftp_password,
     )
+    if remote_path:
+        ftp_client.cwd(remote_path)
     try:
         ftp_client.mkd(remote_directory)
     except error_perm:
