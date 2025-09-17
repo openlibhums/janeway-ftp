@@ -24,6 +24,7 @@ def send_file_via_sftp(
         file_path,
         file_name,
         known_hosts_file=None,
+        confirm_file_sent=True,
 ):
 
     ssh = paramiko.SSHClient()
@@ -51,7 +52,7 @@ def send_file_via_sftp(
         ensure_remote_directory(sftp, remote_file_path)
 
         upload_path = f"{remote_file_path}/{file_name}"
-        sftp.put(file_path, upload_path)
+        sftp.put(file_path, upload_path, confirm=confirm_file_sent)
         logging.info(f"File uploaded successfully to {upload_path}")
     except Exception as e:
         logging.error(f"Failed to send file via SFTP: {e}")
