@@ -11,32 +11,37 @@ from django.http import HttpRequest
 from core import files
 
 
-def prepare_temp_folder(request=None, issue=None, article=None, loc_code=None):
+def prepare_temp_folder(request=None, issue=None, article=None, loc_code=None, journal_code=None):
     """
-    Perpares a temp folder to store files for zipping
+    Prepares a temp folder to store files for zipping
     :param request: Request object
     :param issue: Issue Object
     :param article: Article object
     :param loc_code: string
+    :param journal_code: string
     :return: Folder path, string
     """
     folder_string = str(uuid.uuid4())
+    request_journal_code = getattr(getattr(request, "journal", None), "code", None)
 
-    if article and issue and request:
+    if journal_code is None and request_journal_code:
+        journal_code = request_journal_code
+
+    if article and issue and journal_code:
         folder_string = '{journal_code}_{vol}_{issue}_{pk}'.format(
-            journal_code=request.journal.code,
+            journal_code=journal_code,
             vol=issue.volume,
             issue=issue.issue,
             pk=article.pk)
-    elif issue and request:
+    elif issue and journal_code:
         folder_string = '{journal_code}_{vol}_{issue}_{year}'.format(
-            journal_code=request.journal.code,
+            journal_code=journal_code,
             vol=issue.volume,
             issue=issue.issue,
             year=issue.date.year)
-    elif article and request:
+    elif article and journal_code:
         folder_string = '{journal_code}_{article_id}'.format(
-            journal_code=request.journal.code,
+            journal_code=journal_code,
             article_id=article.pk)
     elif loc_code:
         folder_string = loc_code
