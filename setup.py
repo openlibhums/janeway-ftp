@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='janeway-ftp',
-    version='0.6.0',
+    version='0.7.0',
     author='OLH Tech',
     author_email='olh-tech@bbk.ac.uk',
     packages=['janeway_ftp'],
