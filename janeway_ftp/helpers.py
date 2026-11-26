@@ -2,7 +2,7 @@ import uuid
 import os
 import shutil
 import codecs
-from mock import Mock
+from unittest.mock import Mock
 
 from django.conf import settings
 from django.template.loader import render_to_string
